@@ -13,6 +13,8 @@ Player::~Player() {
 }
 
 void Player::Logic() {
+
+	//controls
 	if (IsKeyDown(KEY_W)) {
 		float rotationRad = (rotation - 90) * PI / 180;
 		velocity += Vector2{cosf(rotationRad), sinf(rotationRad)} * speed * GetFrameTime();
@@ -26,8 +28,13 @@ void Player::Logic() {
 		rotation += rotationSpeed * GetFrameTime();
 	}
 
+	//velocity
+	if (Vector2Length(velocity) >= MaxSpeed) {
+		velocity = Vector2Normalize(velocity) * MaxSpeed;
+	}
 	position += velocity * GetFrameTime();
-	std::cout << position.y << '\n';
+	
+	//wrap-around
 	if (position.y <= -30) {
 		position.y = 625;
 	}
@@ -43,5 +50,7 @@ void Player::Logic() {
 }
 
 void Player::Draw() {
+
 	DrawTexturePro(shipTexture, { 0, 0, (float)shipTexture.width, (float)shipTexture.height }, { position.x, position.y, 50.0f, 50.0f }, { 25.0f, 25.0f }, rotation, WHITE);
+
 }

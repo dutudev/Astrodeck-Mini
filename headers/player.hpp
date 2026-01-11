@@ -3,6 +3,8 @@
 
 class Player {
 private:
+	const float MaxSpeed = 150;
+
 	float speed = 100;
 	float rotationSpeed = 80;
 	float rotation = 0;

@@ -3,6 +3,7 @@
 #include "player.hpp"
 #include <string>
 #include <iostream>
+#include <vector>
 
 Player::Player() {
 	shipTexture = LoadTexture(((std::string)GetWorkingDirectory() + "/assets/images/ship.png").c_str());
@@ -10,6 +11,18 @@ Player::Player() {
 
 Player::~Player() {
 	UnloadTexture(shipTexture);
+}
+
+void Player::SpawnBullet(Vector2 plrPos, Vector2 plrDir) {
+	
+	Bullet* bulletPtr = new Bullet(position, plrDir);
+	activeBullets.push_back(bulletPtr);
+}
+
+void Player::BulletsLogic() {
+	for (Bullet* bullet : activeBullets) {
+		(*bullet).Logic();
+	}
 }
 
 void Player::Logic() {
@@ -26,6 +39,11 @@ void Player::Logic() {
 
 	if (IsKeyDown(KEY_D)) {
 		rotation += rotationSpeed * GetFrameTime();
+	}
+
+	if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+		float rotationRad = (rotation - 90) * PI / 180;
+		SpawnBullet(position, Vector2{ cosf(rotationRad), sinf(rotationRad) });
 	}
 
 	//velocity
@@ -46,6 +64,27 @@ void Player::Logic() {
 	}
 	if (position.x >= 830) {
 		position.x = -25;
+	}
+}
+
+void Player::ClearBullets() {
+	std::vector<Bullet*>::iterator iter = activeBullets.begin();
+	while (iter != activeBullets.end()) {
+		if (!(*(*iter)).isActive()) {
+			Bullet* bulToDel = (*iter);
+			iter = activeBullets.erase(iter);
+			delete bulToDel;
+		}
+		else {
+			iter++;
+		}
+	}
+	//std::cout << activeBullets.size() << '\n';
+}
+
+void Player::BulletsDraw() {
+	for (Bullet* bullet : activeBullets) {
+		(*bullet).Draw();
 	}
 }
 

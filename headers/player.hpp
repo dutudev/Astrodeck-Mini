@@ -1,6 +1,7 @@
 #pragma once
 #include "raylib.h"
-
+#include "bullet.hpp"
+#include <vector>
 class Player {
 private:
 	const float MaxSpeed = 150;
@@ -11,9 +12,16 @@ private:
 	Vector2 position = {50, 50};
 	Vector2 velocity = { 0, 0 };
 	Texture shipTexture;
+
+	std::vector<Bullet*> activeBullets;
+
+	void SpawnBullet(Vector2 plrPos, Vector2 plrDir);
 public:
 	Player();
 	~Player();
+	void ClearBullets();
+	void BulletsLogic();
 	void Logic();
+	void BulletsDraw();
 	void Draw();
 };

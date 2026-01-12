@@ -147,10 +147,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="sources\bullet.cpp" />
     <ClCompile Include="sources\main.cpp" />
     <ClCompile Include="sources\player.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="headers\bullet.hpp" />
     <ClInclude Include="headers\player.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

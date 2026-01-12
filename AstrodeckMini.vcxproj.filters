@@ -21,9 +21,15 @@
     <ClCompile Include="sources\player.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="sources\bullet.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="headers\player.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\bullet.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

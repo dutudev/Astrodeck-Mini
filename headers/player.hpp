@@ -9,7 +9,7 @@ private:
 	float speed = 100;
 	float rotationSpeed = 80;
 	float rotation = 0;
-	Vector2 position = {50, 50};
+	Vector2 position = { 400.0f - 25.0f / 2.0f, 300.0f - 25.0f / 2.0f };
 	Vector2 velocity = { 0, 0 };
 	Texture shipTexture;
 

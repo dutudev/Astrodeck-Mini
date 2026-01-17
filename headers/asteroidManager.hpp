@@ -7,9 +7,19 @@ class AsteroidManager {
 private:
 	int maxAsteroids = 10;
 	int currentAsteroids = 0;
-	std::vector<Asteroid> asteroids;
+	bool asteroidSpawn = false;
+	float spawnCooldown = 1.0f;
+	float lastSpawn = 0.0f;
+	std::vector<Asteroid*> asteroids;
+	std::vector<Texture2D> asteroidTextures;
 	static AsteroidManager instance;
-	AsteroidManager(){};
+	AsteroidManager() {};
 public:
-	static AsteroidManager GetInstance();
+	static AsteroidManager& GetInstance();
+	std::vector<Asteroid*>& GetAsteroids();
+	void LoadTextures();
+	void UnloadTextures();
+	void SetSpawn(bool set);
+	void Logic();
+	void Draw();
 };

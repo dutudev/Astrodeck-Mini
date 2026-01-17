@@ -147,11 +147,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="sources\asteroid.cpp" />
+    <ClCompile Include="sources\asteroidManager.cpp" />
     <ClCompile Include="sources\bullet.cpp" />
     <ClCompile Include="sources\main.cpp" />
     <ClCompile Include="sources\player.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="headers\asteroid.hpp" />
+    <ClInclude Include="headers\asteroidManager.hpp" />
     <ClInclude Include="headers\bullet.hpp" />
     <ClInclude Include="headers\player.hpp" />
   </ItemGroup>

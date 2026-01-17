@@ -24,12 +24,24 @@
     <ClCompile Include="sources\bullet.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="sources\asteroid.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="sources\asteroidManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="headers\player.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="headers\bullet.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\asteroid.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\asteroidManager.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

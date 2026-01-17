@@ -4,7 +4,7 @@
 AsteroidManager AsteroidManager::instance;
 
 static AsteroidManager GetInstance() {
-	if (AsteroidManager::instance == nullptr) {
+	//if (AsteroidManager::instance == nullptr) {
 
-	}
+	//}
 }

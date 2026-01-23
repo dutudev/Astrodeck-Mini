@@ -17,9 +17,11 @@ private:
 public:
 	static AsteroidManager& GetInstance();
 	std::vector<Asteroid*>& GetAsteroids();
+	void AddRemoveAsteroid(Asteroid* toRemove);
 	void LoadTextures();
 	void UnloadTextures();
 	void SetSpawn(bool set);
 	void Logic();
 	void Draw();
+	void DrawDebug();
 };

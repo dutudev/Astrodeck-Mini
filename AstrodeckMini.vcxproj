@@ -152,12 +152,14 @@
     <ClCompile Include="sources\bullet.cpp" />
     <ClCompile Include="sources\main.cpp" />
     <ClCompile Include="sources\player.cpp" />
+    <ClCompile Include="sources\ui.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="headers\asteroid.hpp" />
     <ClInclude Include="headers\asteroidManager.hpp" />
     <ClInclude Include="headers\bullet.hpp" />
     <ClInclude Include="headers\player.hpp" />
+    <ClInclude Include="headers\ui.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

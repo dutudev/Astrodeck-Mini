@@ -1,6 +1,8 @@
 #pragma once
 #include "raylib.h"
-
+#include "asteroidManager.hpp"
+#include "asteroid.hpp"
+#include <vector>
 
 class Bullet {
 private:
@@ -12,6 +14,7 @@ private:
 	float startTime = 0.0f;
 	Vector2 position = { 0, 0 };
 	Vector2 direction = { 0, 0 };
+	std::vector<Asteroid*>* asteroids = nullptr;
 public:
 	Bullet( Vector2 startPos, Vector2 startDirection);
 	bool isActive();

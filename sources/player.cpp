@@ -1,16 +1,21 @@
 #include "raylib.h"
 #include "raymath.h"
 #include "player.hpp"
+#include "asteroidManager.hpp"
+#include "ui.hpp"
 #include <string>
 #include <iostream>
 #include <vector>
 
 Player::Player() {
 	shipTexture = LoadTexture(((std::string)GetWorkingDirectory() + "/assets/images/ship.png").c_str());
+	asteroids = &AsteroidManager::GetInstance().GetAsteroids();
+	UI::SetPlayer(this);
 }
 
 Player::~Player() {
 	UnloadTexture(shipTexture);
+	UI::SetPlayer(nullptr);
 }
 
 void Player::SpawnBullet(Vector2 plrPos, Vector2 plrDir) {
@@ -23,6 +28,23 @@ void Player::BulletsLogic() {
 	for (Bullet* bullet : activeBullets) {
 		(*bullet).Logic();
 	}
+}
+
+bool Player::IsReloading() {
+	return lastCooldown + shootCooldown > GetTime();
+
+}
+
+float Player::TimeReloading() {
+	return lastCooldown + shootCooldown - GetTime();
+}
+
+int Player::GetHealth() {
+	return health;
+}
+
+int Player::GetSpeed() {
+	return Vector2Length(velocity);
 }
 
 void Player::Logic() {
@@ -41,14 +63,23 @@ void Player::Logic() {
 		rotation += rotationSpeed * GetFrameTime();
 	}
 
-	if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+	if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT) && lastCooldown + shootCooldown <= GetTime()) {
 		float rotationRad = (rotation - 90) * PI / 180;
 		SpawnBullet(position, Vector2{ cosf(rotationRad), sinf(rotationRad) });
+		lastCooldown = GetTime();
+	}
+
+	for (Asteroid* asteroid : *asteroids) {
+		if (CheckCollisionCircles(position, 10, asteroid->GetPosition(), 24)) {
+			asteroid->SetActive(false);
+			velocity = Vector2Normalize(velocity) * Vector2Length(velocity) * 0.35f;
+			health -= 6;
+		}
 	}
 
 	//velocity
-	if (Vector2Length(velocity) >= MaxSpeed) {
-		velocity = Vector2Normalize(velocity) * MaxSpeed;
+	if (Vector2Length(velocity) >= maxSpeed) {
+		velocity = Vector2Normalize(velocity) * maxSpeed;
 	}
 	position += velocity * GetFrameTime();
 	

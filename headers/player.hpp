@@ -37,6 +37,7 @@ public:
 	int GetSpeed();
 	void ClearBullets();
 	void BulletsLogic();
+	void Reset();
 	void Logic();
 	void BulletsDraw();
 	void DrawParticles();

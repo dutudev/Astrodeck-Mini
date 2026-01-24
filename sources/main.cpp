@@ -26,6 +26,9 @@ int main() {
 			player.BulletsLogic();
 			AsteroidManager::GetInstance().Logic();
 			break;
+		case 3:
+			UI::LogicButtons();
+			break;
 		}
 		
 		BeginDrawing();
@@ -45,11 +48,24 @@ int main() {
 
 			player.ClearBullets();
 			//AsteroidManager::GetInstance().DrawDebug();
-
+			
 			UI::DrawHeadUI();
 			break;
-		}
+		case 3:
+			player.DrawParticles();
+			AsteroidManager::GetInstance().Draw();
+			player.BulletsDraw();
+			player.Draw();
 
+			//player.DrawDebug();
+
+			player.ClearBullets();
+			//AsteroidManager::GetInstance().DrawDebug();
+
+			UI::DrawHeadUI();
+			UI::DrawEndMenu();
+			break;
+		}
 		
 		EndDrawing();
 

@@ -6,7 +6,6 @@
 class AsteroidManager {
 private:
 	int maxAsteroids = 10;
-	int currentAsteroids = 0;
 	bool asteroidSpawn = false;
 	float spawnCooldown = 1.0f;
 	float lastSpawn = 0.0f;
@@ -21,6 +20,7 @@ public:
 	void LoadTextures();
 	void UnloadTextures();
 	void SetSpawn(bool set);
+	void Reset();
 	void Logic();
 	void Draw();
 	void DrawDebug();

@@ -45,6 +45,14 @@ void AsteroidManager::SetSpawn(bool set) {
 	asteroidSpawn = set;
 }
 
+void AsteroidManager::Reset() {
+	asteroids.clear();
+	maxAsteroids = 10;
+	asteroidSpawn = false;
+	spawnCooldown = 1.0f;
+	lastSpawn = 0.0f;
+}
+
 void AsteroidManager::Logic() {
 	
 	if (lastSpawn + spawnCooldown <= GetTime() && asteroids.size() < maxAsteroids) {

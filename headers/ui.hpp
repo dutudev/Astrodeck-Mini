@@ -17,6 +17,7 @@ namespace UI {
 	void SetPlayer(Player* playerSet);
 	void SetCurrentUI(int set);
 	void LogicButtons();
+	void DrawEndMenu();
 	void DrawHeadUI();
 	void DrawMenu();
 

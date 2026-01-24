@@ -35,6 +35,18 @@ namespace UI {
 		shouldExit = true;
 	}
 
+	void GoToMenu() {
+		SetCurrentUI(0);
+		player->Reset();
+		AsteroidManager::GetInstance().Reset();
+	}
+
+	void RetryGame() {
+		player->Reset();
+		AsteroidManager::GetInstance().Reset();
+		SetCurrentUI(1);
+	}
+
 	void SetCurrentUI(int set) {
 		currentUI = set;
 		std::vector<Button*>::iterator iter = buttonsActive.begin();
@@ -47,7 +59,21 @@ namespace UI {
 			buttonsActive.push_back(new Button({ 400, 300 }, { 200, 50 }, "Play", GoToGame));
 			buttonsActive.push_back(new Button({ 400, 400 }, { 200, 50 }, "Exit", ExitGame));
 			break;
+		case 2:
+			//make select
+			break;
+		case 3:
+			buttonsActive.push_back(new Button({ 400, 350 }, { 200, 50 }, "Retry", RetryGame));
+			buttonsActive.push_back(new Button({ 400, 450 }, { 200, 50 }, "Exit", GoToMenu));
+			break;
+		}
+	}
 
+	void DrawEndMenu() {
+		DrawRectangle(0, 0, 800, 600, { 0, 0, 0, 100 });
+		DrawTextPro(font, "Game Over", Vector2{ 400, 200 } - MeasureTextEx(font, "Game Over", 64, 0) / 2.0f, { 0, 0 }, 0, 64, 0, WHITE);
+		for (Button* button : buttonsActive) {
+			button->Draw();
 		}
 	}
 

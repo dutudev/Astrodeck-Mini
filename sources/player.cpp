@@ -75,6 +75,10 @@ void Player::Logic() {
 			asteroid->SetActive(false);
 			velocity = Vector2Normalize(velocity) * Vector2Length(velocity) * 0.35f;
 			health -= 6;
+			if (health <= 0) {
+				health = 0;
+				UI::SetCurrentUI(3);
+			}
 		}
 	}
 
@@ -104,6 +108,19 @@ void Player::Logic() {
 	posParticleLine2 = position + Vector2{ -cosf(rotationRad2), sinf(rotationRad2) } * Vector2Length(posParticle2);
 
 	particleEmitter.Logic(posParticleLine1, posParticleLine2, Vector2Normalize(Vector2{ cosf(rotationRad), sinf(rotationRad) }) * 55);
+}
+
+void Player::Reset() {
+	health = 20;
+	speed = 80;
+	maxSpeed = 80;
+	rotationSpeed = 80;
+	shootCooldown = 2.0f;
+	rotation = 0;
+	lastCooldown = 0;
+	position = { 400.0f - 25.0f / 2.0f, 300.0f - 25.0f / 2.0f };
+	velocity = { 0, 0 };
+	particleEmitter.Reset();
 }
 
 void Player::ClearBullets() {

@@ -37,6 +37,7 @@ void Asteroid::ResetPos() {
 	float rotation = atan2f(velocity.y, velocity.x) / PI * 180;
 	rotation += (float)GetRandomValue(-600, 600) / 24.0f;
 	rotation = rotation * PI / 180;
+	Asteroid::rotation = GetRandomValue(-360, 360);
 	velocity = Vector2{ cosf(rotation), sinf(rotation) } * GetRandomValue(18, 45);
 	for (Asteroid* as : AsteroidManager::GetInstance().GetAsteroids()) {
 		if (CheckCollisionCircles(position, 24, as->GetPosition(), 24) && as != this) {
@@ -106,5 +107,5 @@ void Asteroid::Logic() {
 }
 
 void Asteroid::Draw() {
-	DrawTexturePro(texture, { 0, 0, (float)texture.width, (float)texture.height }, { position.x, position.y, size.x, size.y }, size / 2.0f, 0, WHITE);
+	DrawTexturePro(texture, { 0, 0, (float)texture.width, (float)texture.height }, { position.x, position.y, size.x, size.y }, size / 2.0f, rotation, WHITE);
 }

@@ -8,6 +8,7 @@ private:
 	const Vector2 size = { 72, 72 };
 
 	bool active = true;
+	float rotation = 0.0f;
 	Vector2 position = { 0, 0 };
 	Vector2 velocity = { 0, 0 };
 	Texture2D texture;

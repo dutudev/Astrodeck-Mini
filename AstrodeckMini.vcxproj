@@ -151,6 +151,8 @@
     <ClCompile Include="sources\asteroidManager.cpp" />
     <ClCompile Include="sources\bullet.cpp" />
     <ClCompile Include="sources\main.cpp" />
+    <ClCompile Include="sources\particle.cpp" />
+    <ClCompile Include="sources\particleEmitter.cpp" />
     <ClCompile Include="sources\player.cpp" />
     <ClCompile Include="sources\ui.cpp" />
   </ItemGroup>
@@ -158,6 +160,8 @@
     <ClInclude Include="headers\asteroid.hpp" />
     <ClInclude Include="headers\asteroidManager.hpp" />
     <ClInclude Include="headers\bullet.hpp" />
+    <ClInclude Include="headers\particle.hpp" />
+    <ClInclude Include="headers\particleEmitter.hpp" />
     <ClInclude Include="headers\player.hpp" />
     <ClInclude Include="headers\ui.hpp" />
   </ItemGroup>

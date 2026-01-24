@@ -1,7 +1,6 @@
 #include "raylib.h"
 #include "raymath.h"
 #include "player.hpp"
-#include "asteroidManager.hpp"
 #include "ui.hpp"
 #include <string>
 #include <iostream>
@@ -48,11 +47,14 @@ int Player::GetSpeed() {
 }
 
 void Player::Logic() {
-
+	float rotationRad = (rotation - 90) * PI / 180;
 	//controls
 	if (IsKeyDown(KEY_W)) {
-		float rotationRad = (rotation - 90) * PI / 180;
-		velocity += Vector2{cosf(rotationRad), sinf(rotationRad)} * speed * GetFrameTime();
+		velocity += Vector2{ cosf(rotationRad), sinf(rotationRad) } *speed * GetFrameTime();
+		particleEmitter.SetEmitter(true);
+	}
+	else {
+		particleEmitter.SetEmitter(false);
 	}
 
 	if (IsKeyDown(KEY_A)) {
@@ -64,7 +66,6 @@ void Player::Logic() {
 	}
 
 	if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT) && lastCooldown + shootCooldown <= GetTime()) {
-		float rotationRad = (rotation - 90) * PI / 180;
 		SpawnBullet(position, Vector2{ cosf(rotationRad), sinf(rotationRad) });
 		lastCooldown = GetTime();
 	}
@@ -96,6 +97,13 @@ void Player::Logic() {
 	if (position.x >= 830) {
 		position.x = -25;
 	}
+	float rotationRad1 = atan2f(posParticle1.y, posParticle1.x) - rotation * PI / 180.0f;
+	float rotationRad2 = atan2f(posParticle2.y, posParticle2.x) - rotation * PI / 180.0f;
+	//particles
+	posParticleLine1 = position + Vector2{ -cosf(rotationRad1), sinf(rotationRad1) } * Vector2Length(posParticle1);
+	posParticleLine2 = position + Vector2{ -cosf(rotationRad2), sinf(rotationRad2) } * Vector2Length(posParticle2);
+
+	particleEmitter.Logic(posParticleLine1, posParticleLine2, Vector2Normalize(Vector2{ cosf(rotationRad), sinf(rotationRad) }) * 55);
 }
 
 void Player::ClearBullets() {
@@ -119,8 +127,12 @@ void Player::BulletsDraw() {
 	}
 }
 
-void Player::Draw() {
+void Player::DrawParticles() {
+	particleEmitter.Draw();
+}
 
+void Player::Draw() {
+	
 	DrawTexturePro(shipTexture, { 0, 0, (float)shipTexture.width, (float)shipTexture.height }, { position.x, position.y, 50.0f, 50.0f }, { 25.0f, 25.0f }, rotation, WHITE);
 
 }

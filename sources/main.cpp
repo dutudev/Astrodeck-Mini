@@ -5,30 +5,52 @@
 int main() {
 
 	InitWindow(800, 600, "MiniAstrodeck");
+	SetExitKey(KEY_NULL);
 
 	Player player;
 	AsteroidManager::GetInstance().LoadTextures();
 	UI::Setup();
-	while (!WindowShouldClose()) {
-		
-		player.Logic();
-		player.BulletsLogic();
-		AsteroidManager::GetInstance().Logic();
+	UI::SetCurrentUI(0);
+	while (!UI::shouldExit) {
 
+		if (WindowShouldClose()) {
+			UI::shouldExit = true;
+		}
+
+		switch (UI::currentUI) {
+		case 0:
+			UI::LogicButtons();
+			break;
+		case 1:
+			player.Logic();
+			player.BulletsLogic();
+			AsteroidManager::GetInstance().Logic();
+			break;
+		}
+		
 		BeginDrawing();
 		ClearBackground(BLACK);
 
+		switch (UI::currentUI) {
+		case 0:
+			UI::DrawMenu();
+			break;
+		case 1:
+			player.DrawParticles();
+			AsteroidManager::GetInstance().Draw();
+			player.BulletsDraw();
+			player.Draw();
 
-		AsteroidManager::GetInstance().Draw();
-		player.BulletsDraw();
-		player.Draw();
+			//player.DrawDebug();
 
-		player.DrawDebug();
+			player.ClearBullets();
+			//AsteroidManager::GetInstance().DrawDebug();
 
-		player.ClearBullets();
-		AsteroidManager::GetInstance().DrawDebug();
+			UI::DrawHeadUI();
+			break;
+		}
 
-		UI::DrawHeadUI();
+		
 		EndDrawing();
 
 	}

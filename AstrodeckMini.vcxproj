@@ -98,7 +98,7 @@
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>raylib.lib;winmm.lib;gdi32.lib;user32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
@@ -113,7 +113,7 @@
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>raylib.lib;winmm.lib;gdi32.lib;user32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
@@ -126,7 +126,7 @@
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>raylib.lib;winmm.lib;gdi32.lib;user32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
@@ -141,7 +141,7 @@
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>raylib.lib;winmm.lib;gdi32.lib;user32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
@@ -164,6 +164,9 @@
     <ClInclude Include="headers\particleEmitter.hpp" />
     <ClInclude Include="headers\player.hpp" />
     <ClInclude Include="headers\ui.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="assets\shaders\starShader.glsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

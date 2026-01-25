@@ -19,7 +19,7 @@ Player::~Player() {
 
 void Player::SpawnBullet(Vector2 plrPos, Vector2 plrDir) {
 	
-	Bullet* bulletPtr = new Bullet(position, plrDir);
+	Bullet* bulletPtr = new Bullet(position, plrDir, this);
 	activeBullets.push_back(bulletPtr);
 }
 
@@ -34,6 +34,16 @@ bool Player::IsReloading() {
 
 }
 
+float Player::HealthAnim() {
+	
+	return healthAnim;
+}
+
+float Player::DamageAnim() {
+	
+	return damageAnim;
+}
+
 float Player::TimeReloading() {
 	return lastCooldown + shootCooldown - GetTime();
 }
@@ -46,11 +56,40 @@ int Player::GetSpeed() {
 	return Vector2Length(velocity);
 }
 
+void Player::AddHealth(int n) {
+	if (health != maxHealth) {
+		healthAnim = 1.1f;
+		damageAnim = 0.0f;
+	}
+	health = Clamp(health + n, 0, maxHealth);
+}
+
+void Player::Upgrade(int n) {
+	switch (n) {
+	case 0:
+		maxSpeed += 25;
+		speed += 25;
+		break;
+	case 1:
+		shootCooldown -= 0.4f;
+		break;
+	case 2:
+		rotationSpeed += 25;
+		break;
+	case 3:
+		maxHealth += 4;
+		break;
+	}
+	
+}
+
 void Player::Logic() {
+	damageAnim = Clamp(damageAnim - GetFrameTime(), 0.0f, 1.1f);
+	healthAnim = Clamp(healthAnim - GetFrameTime(), 0.0f, 1.1f);
 	float rotationRad = (rotation - 90) * PI / 180;
 	//controls
 	if (IsKeyDown(KEY_W)) {
-		velocity += Vector2{ cosf(rotationRad), sinf(rotationRad) } *speed * GetFrameTime();
+		velocity += Vector2{ cosf(rotationRad), sinf(rotationRad) } * speed * GetFrameTime();
 		particleEmitter.SetEmitter(true);
 	}
 	else {
@@ -75,6 +114,8 @@ void Player::Logic() {
 			asteroid->SetActive(false);
 			velocity = Vector2Normalize(velocity) * Vector2Length(velocity) * 0.35f;
 			health -= 6;
+			damageAnim = 1.1f;
+			healthAnim = 0.0f;
 			if (health <= 0) {
 				health = 0;
 				UI::SetCurrentUI(3);

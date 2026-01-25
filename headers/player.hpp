@@ -10,13 +10,16 @@ class Player {
 private:
 
 	int health = 20;
+	int maxHealth = 20;
 	float speed = 80;
 	float maxSpeed = 80;
 	float rotationSpeed = 80;
 	float shootCooldown = 2.0f;
 	float rotation = 0;
 	float lastCooldown = 0;
-	Vector2 position = { 400.0f - 25.0f / 2.0f, 300.0f - 25.0f / 2.0f };
+	float damageAnim = 0;
+	float healthAnim = 0;
+	Vector2 position = { 400.0f, 300.0f};
 	Vector2 velocity = { 0, 0 };
 	Vector2 posParticle1 = { -7 , 10 };
 	Vector2 posParticle2 = { 7, 10 };
@@ -35,8 +38,12 @@ public:
 	float TimeReloading();
 	int GetHealth();
 	int GetSpeed();
+	float DamageAnim();
+	float HealthAnim();
 	void ClearBullets();
 	void BulletsLogic();
+	void Upgrade(int n);
+	void AddHealth(int n);
 	void Reset();
 	void Logic();
 	void BulletsDraw();

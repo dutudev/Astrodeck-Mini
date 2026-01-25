@@ -2,7 +2,7 @@
 #include "player.hpp"
 #include "asteroidManager.hpp"
 #include "ui.hpp"
-int main() {
+int WinMain() {
 
 	InitWindow(800, 600, "MiniAstrodeck");
 	SetExitKey(KEY_NULL);
@@ -26,9 +26,14 @@ int main() {
 			player.BulletsLogic();
 			AsteroidManager::GetInstance().Logic();
 			break;
+		case 2:
+			UI::LogicButtons();
+			break;
 		case 3:
 			UI::LogicButtons();
 			break;
+		case 4:
+			UI::LogicButtons();
 		}
 		
 		BeginDrawing();
@@ -51,22 +56,33 @@ int main() {
 			
 			UI::DrawHeadUI();
 			break;
+		case 2:
+			player.DrawParticles();
+			AsteroidManager::GetInstance().Draw();
+			player.BulletsDraw();
+			player.Draw();
+
+			UI::DrawHeadUI();
+			UI::DrawSelectMenu();
+			break;
 		case 3:
 			player.DrawParticles();
 			AsteroidManager::GetInstance().Draw();
 			player.BulletsDraw();
 			player.Draw();
 
-			//player.DrawDebug();
-
-			player.ClearBullets();
-			//AsteroidManager::GetInstance().DrawDebug();
-
 			UI::DrawHeadUI();
 			UI::DrawEndMenu();
 			break;
+		case 4:
+			player.DrawParticles();
+			AsteroidManager::GetInstance().Draw();
+			player.BulletsDraw();
+			player.Draw();
+
+			UI::DrawHeadUI();
+			UI::DrawWinMenu();
 		}
-		
 		EndDrawing();
 
 	}

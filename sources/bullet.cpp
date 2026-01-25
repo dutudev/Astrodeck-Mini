@@ -3,12 +3,14 @@
 #include "bullet.hpp"
 #include "asteroidManager.hpp"
 #include "asteroid.hpp"
+#include "player.hpp"
 
-Bullet::Bullet(Vector2 startPos, Vector2 startDir) {
+Bullet::Bullet(Vector2 startPos, Vector2 startDir, Player* player) {
 	position = startPos;
 	direction = startDir;
 	startTime = GetTime();
 	asteroids = &AsteroidManager::GetInstance().GetAsteroids();
+	Bullet::player = player;
 }
 
 bool Bullet::isActive() {
@@ -24,6 +26,7 @@ void Bullet::Logic() {
 
 	for (Asteroid* asteroid : *asteroids) {
 		if (CheckCollisionCircles(position, size, asteroid->GetPosition(), 24)) {
+			player->AddHealth(1);
 			asteroid->SetActive(false);
 			active = false;
 		}

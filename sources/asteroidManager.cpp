@@ -3,6 +3,7 @@
 #include <string>
 #include <iostream>
 #include "asteroidManager.hpp"
+#include "ui.hpp"
 
 
 AsteroidManager AsteroidManager::instance;
@@ -23,10 +24,39 @@ void AsteroidManager::LoadTextures() {
 	asteroids.push_back(as1);*/
 }
 
+
+float AsteroidManager::GetTimeWaveShown() {
+	return timeWaveShown;
+}
+
+float AsteroidManager::GetTimeWaveLeft() {
+	return timeTillEndWave;
+}
+
+int AsteroidManager::GetWave() {
+	return wave;
+}
+
 void AsteroidManager::UnloadTextures() {
 	for (Texture2D& tex : asteroidTextures) {
 		UnloadTexture(tex);
 	}
+}
+
+int AsteroidManager::GetSelect1() {
+	return select1;
+}
+
+int AsteroidManager::GetSelect2() {
+	return select2;
+}
+
+int AsteroidManager::GetMaxAsteroids() {
+	return maxAsteroids;
+}
+
+void AsteroidManager::UpdateMaxAsteroids(int n) {
+	maxAsteroids = n;
 }
 
 AsteroidManager& AsteroidManager::GetInstance() {
@@ -51,6 +81,9 @@ void AsteroidManager::Reset() {
 	asteroidSpawn = false;
 	spawnCooldown = 1.0f;
 	lastSpawn = 0.0f;
+	wave = 0;
+	timeTillEndWave = 0;
+	timeWaveShown = 0;
 }
 
 void AsteroidManager::Logic() {
@@ -71,7 +104,23 @@ void AsteroidManager::Logic() {
 		}
 	}
 	//std::cout << asteroids.size() << '\n';
-	
+	timeTillEndWave -= GetFrameTime();
+	if (timeTillEndWave <= 0) {
+		wave++;
+		timeTillEndWave = 30 + 10 * (wave - 1); // 30
+		timeWaveShown = 30 + 10 * (wave - 1); // 30
+		select1 = GetRandomValue(0, 3);
+		select2 = GetRandomValue(0, 3);
+		while (select1 == select2) {
+			select2 = GetRandomValue(0, 3);
+		}
+		if (wave != 1) {
+			UI::SetCurrentUI(2);
+		}
+		if (wave == 6) {
+			UI::SetCurrentUI(4);
+		}
+	}
 }
 
 void AsteroidManager::Draw() {
